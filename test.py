@@ -1,5 +1,4 @@
 import  unittest
-import numpy as np
 
 from logistic import *
 class TestLogistic(unittest.TestCase):
