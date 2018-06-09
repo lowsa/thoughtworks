@@ -8,12 +8,10 @@ class GameOfLife(object):
         Parameters
         ----------
         cells_shape : 一个元组，表示画布的大小。
-
         Examples
         --------
         建立一个高20，宽30的画布
         game = GameOfLife((20, 30))
-
         """
 
         # 矩阵的四周不参与运算
@@ -21,8 +19,9 @@ class GameOfLife(object):
 
         realWidth = cellsShape[0] - 2
         realHeight = cellsShape[1] - 2
-
-        self.cells[1:-1, 1:-1] = np.random.randint(2, size=(realWidth, realHeight))
+        self.cells[50:70, 40:45] = np.random.randint(2, size=(20, 5))
+        self.cells[1:5, 1:5] = np.random.randint(2, size=(4, 4))
+        #self.cells[1:-1, 1:-1] = np.random.randint(2, size=(realWidth, realHeight))
         self.timer = 0
         self.mask = np.ones(9)
         self.mask[4] = 0
@@ -36,6 +35,7 @@ class GameOfLife(object):
                 # 计算该细胞周围的存活细胞数
                 neighbor = cells[i - 1:i + 2, j - 1:j + 2].reshape((-1,))
                 neighborNum = np.convolve(self.mask, neighbor, 'valid')[0]
+
                 if neighborNum == 3:
                     buf[i, j] = 1
                 elif neighborNum == 2:
@@ -58,14 +58,16 @@ class GameOfLife(object):
         n_iter : 更新的轮数
         """
         plt.ion()
-        for _ in range(n_iter):
-            plt.title('Iter :{}'.format(self.timer))
-            plt.imshow(self.cells)
+        while True:
+            plt.title('conveys game')
+            plt.axis('off')
+            plt.imshow(self.cells,cmap=plt.cm.gray)
+
             self.updateState()
             plt.pause(0.2)
         plt.ioff()
 
 
 if __name__ == '__main__':
-    game = GameOfLife(cellsShape=(60, 60))
+    game = GameOfLife(cellsShape=(200, 200))
     game.updateAndPlot(200)
