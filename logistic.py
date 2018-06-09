@@ -12,7 +12,7 @@ class GameOfLife(object):
         self.cells = np.zeros(cells_shape)
 
         self.cells[50:70, 40:45] = np.random.randint(2, size=(20, 5))
-        self.cells[1:5, 1:5] = np.random.randint(2, size=(4, 4))
+        self.cells[1:5, 2:5] = np.random.randint(2, size=(4, 3))
 
         self.timer = 0
         self.mask = np.ones(9)
