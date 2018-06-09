@@ -3,13 +3,13 @@ import matplotlib.pyplot as plt
 
 
 class GameOfLife(object):
-    def __init__(self, cellsShape):
+    def __init__(self, cells_shape):
         """
         cellsShape : 一个元组，表示画布的大小
         """
 
         # 矩阵的四周不参与运算
-        self.cells = np.zeros(cellsShape)
+        self.cells = np.zeros(cells_shape)
 
         self.cells[50:70, 40:45] = np.random.randint(2, size=(20, 5))
         self.cells[1:5, 1:5] = np.random.randint(2, size=(4, 4))
@@ -22,11 +22,11 @@ class GameOfLife(object):
 
     def is_alive(self,i,j):
         neighbor = self.cells[i - 1:i + 2, j - 1:j + 2].reshape((-1,))
-        neighborNum = np.convolve(self.mask, neighbor, 'valid')[0]
+        neighbor_num = np.convolve(self.mask, neighbor, 'valid')[0]
 
-        if neighborNum == 3:
+        if neighbor_num == 3:
             return 1
-        elif neighborNum == 2:
+        elif neighbor_num == 2:
             return self.cells[i, j]
         else:
             return 0
@@ -48,7 +48,7 @@ class GameOfLife(object):
         plt.imshow(self.cells)
         plt.show()
 
-    def updateAndPlot(self, n_iter):
+    def update_and_plot(self, n_iter):
         """更新状态并画图
         Parameters
         ----------
@@ -65,5 +65,5 @@ class GameOfLife(object):
 
 
 if __name__ == '__main__':
-    game = GameOfLife(cellsShape=(200, 200))
-    game.updateAndPlot(200)
+    game = GameOfLife(cells_shape=(200, 200))
+    game.update_and_plot(200)
